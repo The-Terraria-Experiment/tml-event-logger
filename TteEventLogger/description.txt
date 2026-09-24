@@ -1,0 +1,1 @@
+Server-side event feed for The Terraria Experiment's server manager: pushes player join/leave/chat/death/spawn and world-save events to the manager over HTTPS. Not needed by clients.

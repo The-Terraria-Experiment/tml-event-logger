@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+		Imports tMLMod.targets straight from the tModLoader install, so the mod builds from this repo
+		rather than from ModSources. Point TmlInstallDir at the install via an environment variable or
+		-p:TmlInstallDir=...; it falls back to the default Steam location.
+	-->
+	<PropertyGroup>
+		<TmlInstallDir Condition="'$(TmlInstallDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\tModLoader</TmlInstallDir>
+	</PropertyGroup>
+
+	<Import Project="$(TmlInstallDir)\tMLMod.targets" Condition="Exists('$(TmlInstallDir)\tMLMod.targets')" />
+
+	<PropertyGroup>
+		<AssemblyName>TteEventLogger</AssemblyName>
+		<RootNamespace>TteEventLogger</RootNamespace>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<Target Name="RequireTModLoader" BeforeTargets="Restore;Build">
+		<Error Condition="!Exists('$(TmlInstallDir)\tMLMod.targets')" Text="tModLoader not found at '$(TmlInstallDir)'. Set the TmlInstallDir environment variable (or pass -p:TmlInstallDir=...) to your tModLoader install directory." />
+	</Target>
+
+</Project>
