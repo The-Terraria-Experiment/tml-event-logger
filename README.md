@@ -8,4 +8,6 @@ tModLoader counterpart of `tshock-event-notifier`, built on that repo's platform
 
 - **Wire contract:** [`docs/contracts/event-push.md`](https://github.com/The-Terraria-Experiment/tte-server-manager/blob/main/docs/contracts/event-push.md) in tte-server-manager. That document is authoritative.
 - **Build:** `dotnet build TteEventLogger/TteEventLogger.csproj`, with `TmlInstallDir` set.
-- **Status:** scaffold. See the milestones in [CLAUDE.md](CLAUDE.md).
+- **Status:** all milestones implemented; not yet checked end to end with a real client. See [CLAUDE.md](CLAUDE.md).
+- **Config:** `ModConfigs/TteEventLogger_EventLoggerConfig.json` in the tModLoader save directory (`EndpointUrl`, `ApiKey`, per-event toggles).
+- **Console:** `eventlogger <status|test|showconfig>`.

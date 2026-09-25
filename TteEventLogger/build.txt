@@ -2,3 +2,4 @@ displayName = TTE Event Logger
 author = The Terraria Experiment
 version = 0.1.0
 side = Server
+dllReferences = EventNotifier.Core

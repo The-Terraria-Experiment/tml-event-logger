@@ -3,7 +3,8 @@ using Terraria.ModLoader;
 namespace TteEventLogger;
 
 /// <summary>
-/// Entry point. See CLAUDE.md for the contract and milestones. Intentionally empty until milestone 1.
+/// Entry point. The work happens in <see cref="EventLoggerSystem"/> and <see cref="EventLoggerPlayer"/>;
+/// see CLAUDE.md for the contract.
 /// </summary>
 public class TteEventLogger : Mod
 {

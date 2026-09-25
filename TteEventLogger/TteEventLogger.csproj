@@ -18,6 +18,16 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<!--
+		EventNotifier.Core, built net8.0 from ../tshock-event-notifier and committed here. build.txt's
+		dllReferences packs it into the .tmod; this reference is only for compilation.
+	-->
+	<ItemGroup>
+		<Reference Include="EventNotifier.Core">
+			<HintPath>lib\EventNotifier.Core.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
 	<Target Name="RequireTModLoader" BeforeTargets="Restore;Build">
 		<Error Condition="!Exists('$(TmlInstallDir)\tMLMod.targets')" Text="tModLoader not found at '$(TmlInstallDir)'. Set the TmlInstallDir environment variable (or pass -p:TmlInstallDir=...) to your tModLoader install directory." />
 	</Target>

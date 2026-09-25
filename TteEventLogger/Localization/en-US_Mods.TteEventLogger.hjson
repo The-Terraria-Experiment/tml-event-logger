@@ -1,0 +1,81 @@
+Configs: {
+	EventLoggerConfig: {
+		DisplayName: Event Logger Config
+
+		Headers: {
+			Endpoint: Endpoint Header
+			Delivery: Delivery Header
+			Events: Events Header
+		}
+
+		EndpointUrl: {
+			Label: Endpoint Url
+			Tooltip: ""
+		}
+
+		ApiKey: {
+			Label: Api Key
+			Tooltip: ""
+		}
+
+		ApiKeyHeaderName: {
+			Label: Api Key Header Name
+			Tooltip: ""
+		}
+
+		ServerName: {
+			Label: Server Name
+			Tooltip: ""
+		}
+
+		RequestTimeoutMs: {
+			Label: Request Timeout Ms
+			Tooltip: ""
+		}
+
+		RetryCount: {
+			Label: Retry Count
+			Tooltip: ""
+		}
+
+		RetryDelayMs: {
+			Label: Retry Delay Ms
+			Tooltip: ""
+		}
+
+		QueueCapacity: {
+			Label: Queue Capacity
+			Tooltip: ""
+		}
+
+		Join: {
+			Label: Join
+			Tooltip: ""
+		}
+
+		Leave: {
+			Label: Leave
+			Tooltip: ""
+		}
+
+		Chat: {
+			Label: Chat
+			Tooltip: ""
+		}
+
+		Death: {
+			Label: Death
+			Tooltip: ""
+		}
+
+		Spawn: {
+			Label: Spawn
+			Tooltip: ""
+		}
+
+		WorldSave: {
+			Label: World Save
+			Tooltip: ""
+		}
+	}
+}
