@@ -42,6 +42,7 @@ tml-event-logger/
     TteEventLogger.csproj
     TteEventLogger.cs      ← the Mod class (empty)
     EventLoggerConfig.cs   ← ServerSide ModConfig, copied onto Core's NotifierSettings
+    EndpointFile.cs        ← the root-owned endpoint + API key file the fleet uses instead of the ModConfig
     EventPublisher.cs      ← builds envelopes from game state and owns Core's queue and the player cache
     EventLoggerSystem.cs   ← join, chat and spawn detours, world save, publisher lifetime
     EventLoggerPlayer.cs   ← death and leave (ModPlayer)
@@ -94,7 +95,8 @@ A join clears it, and so does the leave after it's sent.
 - **Keep `side = Server`.** tModLoader sends a ServerSide config's JSON, API key included, to every joining client for `side = Both` mods (`ModNet.SendServerConfigs`). A server-only mod's config is never sent.
 - **Hooks run on several threads** (main, network, world save), so everything they touch in `EventPublisher` is thread-safe. Every hook body goes through `EventLoggerSystem.Guard`, so a failure in the event feed can't break joins, chat or saves.
 - **`ModSystem.SaveWorldData` requires a `LoadWorldData` override.** tModLoader refuses to load the mod without both (a no-op is fine).
-- **The endpoint URL already contains the instance ID** (`/logging/{instanceId}/players/push`). The instance's `setup.sh` seeds it. Nothing hardcodes it.
+- **On the fleet, the endpoint URL and API key come from a root-owned file, not the ModConfig.** tte-server-manager's `setup.sh` writes `{ "endpointUrl", "apiKey" }` to `/etc/tte/tte-event-logger-endpoint.json`, outside every folder the web app can browse, and the launch passes that path in `TTE_EVENT_LOGGER_ENDPOINT_FILE` (`EndpointFile.cs`, the same pattern as TteControl's credential file). `ModConfigs/` is browsable and downloadable from the web app, so the key must never be seeded there. When the file loads it overrides the ModConfig's two fields; without the variable (a local dev server) the ModConfig is used. It is read once, at load, so a new key needs a server restart.
+- **The endpoint URL already contains the instance ID** (`/logging/{instanceId}/players/push`). Nothing hardcodes it.
 
 ## Milestones
 

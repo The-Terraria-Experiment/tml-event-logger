@@ -7,9 +7,14 @@ namespace TteEventLogger;
 
 /// <summary>
 /// Server config, stored at <c>ModConfigs/TteEventLogger_EventLoggerConfig.json</c> under the tModLoader
-/// save directory (the instance's setup script seeds it).
+/// save directory.
 /// </summary>
 /// <remarks>
+/// On the fleet, <c>EndpointUrl</c> and <c>ApiKey</c> come from the root-owned file named by
+/// <c>TTE_EVENT_LOGGER_ENDPOINT_FILE</c> instead (see <see cref="EndpointFile"/>), which overrides
+/// them here. <c>ModConfigs/</c> is browsable from the web app, so the key must not live in it there.
+/// The two fields remain for a local dev server with no such file.
+///
 /// tModLoader sends a ServerSide config's JSON to every client, but only for mods with
 /// <c>side = Both</c>. This mod is <c>side = Server</c>, so the API key never leaves the server. Keep it
 /// that way.
