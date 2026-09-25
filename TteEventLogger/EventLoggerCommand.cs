@@ -60,6 +60,7 @@ public sealed class EventLoggerCommand : ModCommand
 		// Never print the API key itself.
 		caller.Reply($"Endpoint: {(string.IsNullOrWhiteSpace(settings.EndpointUrl) ? "(not set)" : settings.EndpointUrl)}");
 		caller.Reply($"API key: {(string.IsNullOrWhiteSpace(settings.ApiKey) ? "(not set)" : "(set)")}, header: {settings.ApiKeyHeaderName}");
+		caller.Reply($"Endpoint and key from: {publisher.EndpointSource}");
 		caller.Reply($"SchemaVersion: {settings.SchemaVersion}, timeout: {settings.RequestTimeoutMs}ms, retries: {settings.RetryCount} x {settings.RetryDelayMs}ms, queue: {settings.QueueCapacity}");
 		caller.Reply($"Enabled hooks: join={events.Join}, leave={events.Leave}, chat={events.Chat}, death={events.Death}, spawn={events.Spawn}, worldsave={events.WorldSave}");
 	}

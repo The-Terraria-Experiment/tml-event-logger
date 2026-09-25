@@ -32,9 +32,20 @@ public sealed class EventPublisher : IDisposable
 	private int _warnedNoEndpoint;
 	private string _serverName = "";
 
+	/// <summary>The root-owned endpoint file, when the launch named one and it loaded. Read once: a new key needs a restart.</summary>
+	private readonly EndpointFile.Endpoint? _endpointFile;
+
 	public EventPublisher(Mod mod, EventLoggerConfig config)
 	{
 		_mod = mod;
+
+		var (endpoint, problem) = EndpointFile.LoadFromEnvironment();
+		_endpointFile = endpoint;
+		if (problem is not null)
+		{
+			LogWarn(problem + " Falling back to the ModConfig's EndpointUrl and ApiKey.");
+		}
+
 		ApplyConfig(config);
 
 		// Core's sender reads _settings on every request, so later ApplyConfig calls take effect
@@ -45,9 +56,17 @@ public sealed class EventPublisher : IDisposable
 
 	public NotifierSettings Settings => _settings;
 
+	/// <summary>Where the endpoint and key came from, for <c>showconfig</c>. Names the path, never the contents.</summary>
+	public string EndpointSource => _endpointFile is null ? "ModConfig" : $"file {_endpointFile.Path}";
+
 	public void ApplyConfig(EventLoggerConfig config)
 	{
 		config.CopyTo(_settings);
+		if (_endpointFile is not null)
+		{
+			_settings.EndpointUrl = _endpointFile.EndpointUrl;
+			_settings.ApiKey = _endpointFile.ApiKey;
+		}
 		_serverName = config.ServerName?.Trim() ?? "";
 		_warnedNoEndpoint = 0;
 	}
